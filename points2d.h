@@ -23,7 +23,10 @@ class Points2D {
 
     // Zero-parameter constructor.
     // Set size to 0.
-    Points2D() = default;
+    Points2D()
+    {
+        size_ = 0;
+    }
 
     // Copy-constructor.
     Points2D(const Points2D &rhs) = default;
@@ -51,10 +54,13 @@ class Points2D {
 
     // One parameter constructor.
     Points2D(const std::array<Object, 2>& item) {
+        size_ = item.size();
+        sequence_=item;
         // Provide code.
     }
 
     size_t size() const {
+        return size_;
         // Code missing.
     }
 
@@ -63,6 +69,11 @@ class Points2D {
     // const version.
     // abort() if out-of-range.
     const std::array<Object, 2>& operator[](size_t location) const {
+
+        if(location >= 0 && location < size_)
+        {
+            return sequence_[location];
+        }
         // Code missing.
     }
 
