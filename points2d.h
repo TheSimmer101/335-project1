@@ -25,6 +25,7 @@ class Points2D {
     // Set size to 0.
     Points2D()
     {
+        sequence_=nullptr;
         size_ = 0;
     }
 
