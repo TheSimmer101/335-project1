@@ -98,7 +98,7 @@ class Points2D {
     // One parameter constructor.
     Points2D(const std::array<Object, 2>& item) {
         //size_ = sizeof(item)/item[0];
-        size_ = item.size();
+        size_ = item.size()/2;
         sequence_= new std::array<Object,2>[size_];
 
        //sequence_ = *item;
@@ -109,7 +109,7 @@ class Points2D {
            // *(sequence_)[0] = item[i];
            // *(sequence_+i)[1] = item[i];
           sequence_[i][0] = item[i];
-          sequence_[i][1] = item[i];
+          sequence_[i][1] = item[i+1];
         }
             
     }
@@ -170,8 +170,8 @@ class Points2D {
                // std::cout << "result is : " << result;
                 for(int i = 0; i < c2.size_;i++)
                 {
-                    result.sequence_[i][0]+= c1.sequence_[i][0];
-                    result.sequence_[i][1]+= c1.sequence_[i][1];
+                    result.sequence_[i][0]+= c2.sequence_[i][0];
+                    result.sequence_[i][1]+= c2.sequence_[i][1];
                    // std:: cout << "sum is: " << result.sequence_[i][0] << " " << result.sequence_[i][1] << "\n";
                 }
             }
