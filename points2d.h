@@ -97,7 +97,8 @@ class Points2D {
 
     // One parameter constructor.
     Points2D(const std::array<Object, 2>& item) {
-        size_ = sizeof(item)/item[0];
+        //size_ = sizeof(item)/item[0];
+        size_ = item.size();
         sequence_= new std::array<Object,2>[size_];
 
        //sequence_ = *item;
@@ -134,7 +135,8 @@ class Points2D {
         }
         else
         {
-            std:: cout << "aborted operator[]";
+           // std:: cout << "aborted operator[]";
+        
             abort();
         }
          
@@ -154,23 +156,23 @@ class Points2D {
         if(secondLarger)
             {
                 result = c2;
-                std::cout << "result is : " << result;
+               // std::cout << "result is : " << result;
                 for(int i = 0; i < c1.size_; i++)
                 {
                     
                     result.sequence_[i][0]+= c1.sequence_[i][0];
                     result.sequence_[i][1]+= c1.sequence_[i][1];
-                    std:: cout << "sum is: " << result.sequence_[i][0] << " " << result.sequence_[i][1] << "\n";
+                   // std:: cout << "sum is: " << result.sequence_[i][0] << " " << result.sequence_[i][1] << "\n";
                 }
             }
         else{
                 result = c1;
-                std::cout << "result is : " << result;
+               // std::cout << "result is : " << result;
                 for(int i = 0; i < c2.size_;i++)
                 {
                     result.sequence_[i][0]+= c1.sequence_[i][0];
                     result.sequence_[i][1]+= c1.sequence_[i][1];
-                    std:: cout << "sum is: " << result.sequence_[i][0] << " " << result.sequence_[i][1] << "\n";
+                   // std:: cout << "sum is: " << result.sequence_[i][0] << " " << result.sequence_[i][1] << "\n";
                 }
             }
         
@@ -180,7 +182,7 @@ class Points2D {
     // Overloading the << operator.
     friend std::ostream &operator<<(std::ostream &out, const Points2D &some_points) {
         for(int i = 0; i < some_points.size();i++)
-             out << some_points[i][0] << " " << some_points[i][1] << " ";
+             out << "(" <<some_points[i][0] << "," << some_points[i][1] << ") ";
         // Code missing.
         std::cout << "\n";
         return out;

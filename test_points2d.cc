@@ -32,17 +32,17 @@ void TestPart1() {
     cout << "After copy constructor1 c{a}: " << endl;
     cout << c;
     cout << a;
-    // a = b;  // Should call the copy assignment operator for a.
-    // cout << "After assignment a = b" << endl;
-    // cout << a;
-    // Points2D<int> e = move(c);  // Move constructor for e.
-    // cout << "After e = move(c) " << endl;
-    // cout << e;
-    // cout << c;
-    // cout << "After a = move(e) " << endl;
-    // a = move(e);  // Move assignment operator for a.
-    // cout << a;
-    // cout << e;
+    a = b;  // Should call the copy assignment operator for a.
+    cout << "After assignment a = b" << endl;
+    cout << a;
+    Points2D<int> e = move(c);  // Move constructor for e.
+    cout << "After e = move(c) " << endl;
+    cout << e;
+    cout << c;
+    cout << "After a = move(e) " << endl;
+    a = move(e);  // Move assignment operator for a.
+    cout << a;
+    cout << e;
 }
 
 void TestPart2() {
