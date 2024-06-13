@@ -108,8 +108,8 @@ class Points2D {
         {
            // *(sequence_)[0] = item[i];
            // *(sequence_+i)[1] = item[i];
-           sequence_[i][0] = item[i];
-            sequence_[i][1] = item[i];
+          sequence_[i][0] = item[i];
+          sequence_[i][1] = item[i];
         }
             
     }
@@ -136,7 +136,7 @@ class Points2D {
         else
         {
            // std:: cout << "aborted operator[]";
-        
+            std::cerr << "ERROR\n";
             abort();
         }
          
