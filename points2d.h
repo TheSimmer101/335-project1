@@ -25,15 +25,24 @@ class Points2D {
     // Set size to 0.
     Points2D()
     {
-        sequence_=nullptr;
+        sequence_= nullptr;
         size_ = 0;
     }
 
     // Copy-constructor.
     Points2D(const Points2D &rhs)
     {
-        sequence_ = rhs.sequence_;
-        size_ = rhs.size();
+        // sequence_ = new std::array<Object,2>[rhs.size()];
+        // sequence_ = rhs.sequence_;
+        // size_ = rhs.size();
+        size_ = rhs.size_;
+        sequence_ = new std::array<Object,2>[size_];
+
+        for(int i = 0; i < size_;i++)
+        {
+            sequence_[i][0] = rhs.sequence_[i][0];
+            sequence_[i][1] = rhs.sequence_[i][1];
+        }
     }
 
     // Copy-assignment. If you have already written
@@ -55,9 +64,17 @@ class Points2D {
     Points2D(Points2D &&rhs)
     {
         size_ = rhs.size_;
-        sequence_ = rhs.sequence_;
+        sequence_ = new std::array<Object,2>[size_];
+
+        for(int i = 0; i < size_;i++)
+        {
+            sequence_[i][0] = rhs.sequence_[i][0];
+            sequence_[i][1] = rhs.sequence_[i][1];
+        }
+       // sequence_ = rhs.sequence_;
 
         rhs.size_ = 0;
+        rhs.sequence_ = nullptr;
         //rhs.sequence_ = [];
     }
 
@@ -116,7 +133,11 @@ class Points2D {
             return *(sequence_ + location);
         }
         else
+        {
+            std:: cout << "aborted operator[]";
             abort();
+        }
+         
         // Code missing.
     }
 
@@ -133,7 +154,7 @@ class Points2D {
         if(secondLarger)
             {
                 result = c2;
-
+                std::cout << "result is : " << result;
                 for(int i = 0; i < c1.size_; i++)
                 {
                     
@@ -144,7 +165,7 @@ class Points2D {
             }
         else{
                 result = c1;
-
+                std::cout << "result is : " << result;
                 for(int i = 0; i < c2.size_;i++)
                 {
                     result.sequence_[i][0]+= c1.sequence_[i][0];
@@ -188,6 +209,7 @@ class Points2D {
             some_points.sequence_[i][1] = entry2;
 
         }
+        return in;
         // Code missing.
     }
 
