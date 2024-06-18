@@ -173,7 +173,7 @@ class Points2D {
             //pointer + index = pointer to that index.
             return *(sequence_ + location);
         }
-        else //if location out of bounds, print ERROR and abort the code.
+        else //if location out of bounds, print ERROR and abort.
         {
            // std:: cout << "aborted operator[]";
             std::cerr << "ERROR\n";
@@ -202,7 +202,7 @@ class Points2D {
                    // std:: cout << "sum is: " << result.sequence_[i][0] << " " << result.sequence_[i][1] << "\n";
                 }
             }
-        else{
+        else{//same code as above just switched the c1 and c2
                 result = c1;
                // std::cout << "result is : " << result;
                 for(int i = 0; i < c2.size_;i++)
@@ -238,7 +238,7 @@ class Points2D {
         some_points.size_ = totalPoints;
         some_points.sequence_ = new std::array<Object,2>[totalPoints];
 
-        //don't know if it's int or double so I used Object as a "placeholder". 
+        //don't know if it's int or double so I used Object as the type, since we're using a template
         Object entry1;
         Object entry2;
 
