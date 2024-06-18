@@ -1,5 +1,27 @@
-// --> YOUR NAME here
-// Few comments describing the class Points2D
+/* Modified privded points2d.h file
+Author: Rachel Briskman
+Course: CSCI-33500
+Instructor: Jaime Canizales
+Assignment: 1
+
+Summer 2024
+
+Implemented the big 5 of OOP.
+
+- Default constructor Points2D()
+- Copy Constructor: Points2D(const Points2D &rhs)
+- Copy Assignment Operator: Points2D& operator=(const Points2D &rhs)
+- Move Constructor: Points2D(Points2D &&rhs)
+- Move Assignment Operator: Points2D& operator=(Points2D &&rhs)
+
+- One Parameter Constructor: Points2D(const std::array<Object, 2>& item)
+- Getter function for size of the sequence: size_t size() const
+- Getter function for an element at a certain index (aka location) of the sequence, basically overloaded operator[] : const std::array<Object, 2>& operator[](size_t location)
+- Destructor: ~Points2D()
+- Overloaded Add operator to add 2 points together and return a new point that is the sum: Points2D operator+(const Points2D &c1, const Points2D &c2)
+- Overloaded the << operator to display each Point2d's points in the sequence: std::ostream &operator<<(std::ostream &out, const Points2D &some_points)
+- Overloaded the >> operator to take in user input, used to initalize a new point: std::istream &operator>>(std::istream &in, Points2D &some_points)
+*/
 
 #ifndef CSCI335_HOMEWORK1_POINTS2D_H_
 #define CSCI335_HOMEWORK1_POINTS2D_H_
@@ -9,20 +31,28 @@
 #include <cstddef>
 #include <string>
 #include <sstream>
-// ADDING A NEW COMMENT
+
+/*
+    The point of this class is to store numbers (either integers or doubles) as 2 dimensional points, like (x,y) coordinates for example.
+    With only 2 private variables, we can initalize the sequence_ (pointer to an array that stores our values) with the size_ (the other private variable).
+    We allocate memory only as needed, and the size is immutable. Of course, to make a longer sequence we can add (0,0)'s to the end of an existing Point2d object and store that in another variable.
+
+*/
+
 namespace teaching_project {
 
-// Place comments that provide a brief explanation of the class,
-// and its sample usage.
+
 template<typename Object>
 class Points2D {
   public:
+    //Instructions
     // Default "big five" -- you have to alter them for your assignment.
     // That means that you will remove the "= default" statement.
     //  and you will provide an implementation.
 
     // Zero-parameter constructor.
     // Set size to 0.
+
     Points2D()
     {
         sequence_= nullptr;
@@ -35,9 +65,12 @@ class Points2D {
         // sequence_ = new std::array<Object,2>[rhs.size()];
         // sequence_ = rhs.sequence_;
         // size_ = rhs.size();
+
         size_ = rhs.size_;
+        //allocates memory for the array using size_
         sequence_ = new std::array<Object,2>[size_];
 
+        //loops through both arrays and copies the data into this object's sequence (by this I don't mean rhs)
         for(int i = 0; i < size_;i++)
         {
             sequence_[i][0] = rhs.sequence_[i][0];
@@ -55,6 +88,7 @@ class Points2D {
     // }
     Points2D& operator=(const Points2D &rhs)
     {
+        //I just used the provided comment above for this :)
         Points2D copy = rhs;
         std::swap(*this, copy);
         return *this;
@@ -63,9 +97,11 @@ class Points2D {
     // Move-constructor.
     Points2D(Points2D &&rhs)
     {
+        //once again allocates memory to array using size_
         size_ = rhs.size_;
         sequence_ = new std::array<Object,2>[size_];
 
+        //copies everything into this object
         for(int i = 0; i < size_;i++)
         {
             sequence_[i][0] = rhs.sequence_[i][0];
@@ -73,6 +109,7 @@ class Points2D {
         }
        // sequence_ = rhs.sequence_;
 
+        //then set rhs to "nothing", basically it's not empty.
         rhs.size_ = 0;
         rhs.sequence_ = nullptr;
         //rhs.sequence_ = [];
@@ -82,6 +119,7 @@ class Points2D {
     // Just use std::swap() for all variables.
     Points2D& operator=(Points2D &&rhs)
     {
+        //Like the provided comment says, I just used swap for all of the variables.
          std::swap(size_, rhs.size_);
          std::swap(sequence_, rhs.sequence_);
          return *this;
@@ -89,6 +127,7 @@ class Points2D {
 
     ~Points2D()
     {
+        //deallocates memory and gets rid of everything. 
         delete[] sequence_;
         size_ = 0;
     }
@@ -98,12 +137,15 @@ class Points2D {
     // One parameter constructor.
     Points2D(const std::array<Object, 2>& item) {
         //size_ = sizeof(item)/item[0];
+
+        //divide by 2 because each point has 2 numbers, but we don't want to go out of bounds when iterating item.
+        //like 3 points is technically 6 numbers, but the array will not have 6 rows.
         size_ = item.size()/2;
         sequence_= new std::array<Object,2>[size_];
 
        //sequence_ = *item;
-        // Provide code.
-
+       
+        //loop through all of item and copy the data over into this object's sequence_
         for(int i = 0; i < item.size();i++)
         {
            // *(sequence_)[0] = item[i];
@@ -114,9 +156,9 @@ class Points2D {
             
     }
 
+    //getter function for size_, just returns the size_
     size_t size() const {
         return size_;
-        // Code missing.
     }
 
     // @location: an index to a location in the sequence.
@@ -125,22 +167,20 @@ class Points2D {
     // abort() if out-of-range.
     const std::array<Object, 2>& operator[](size_t location) const {
 
+        //only return is location is in bounds.
         if(location >= 0 && location < size_)
         {
-            //std::array<Object,2> result = new array<Object,2>[2];
-            
-            //return sequence_[location][0];
-            //return result;
+            //pointer + index = pointer to that index.
             return *(sequence_ + location);
         }
-        else
+        else //if location out of bounds, print ERROR and abort the code.
         {
            // std:: cout << "aborted operator[]";
             std::cerr << "ERROR\n";
             abort();
         }
          
-        // Code missing.
+       
     }
 
     //  @c1: A sequence.
@@ -148,8 +188,6 @@ class Points2D {
     //  @return their sum. If the sequences are not of the same size, append the
     //    result with the remaining part of the larger sequence.
     friend Points2D operator+(const Points2D &c1, const Points2D &c2) {
-        // Code missing.
-        //return 1;
         Points2D result;
         bool secondLarger = (c2.size() >= c1.size());
 
@@ -181,9 +219,11 @@ class Points2D {
 
     // Overloading the << operator.
     friend std::ostream &operator<<(std::ostream &out, const Points2D &some_points) {
+        //loop through all of some_points and print each number.
+        //Each point is surrounded by parentheses, with a comma separating the 2 values E.g (1, 2) (3, 4)
         for(int i = 0; i < some_points.size();i++)
              out << "(" <<some_points[i][0] << "," << some_points[i][1] << ") ";
-        // Code missing.
+        
         std::cout << "\n";
         return out;
     }
@@ -194,7 +234,8 @@ class Points2D {
         //the 1st number we take in, so if it's 3, that means we have 3 points (each points has 2 nums)
         int totalPoints = 0;
         in >> totalPoints;
-
+        
+            //allocates memory with that size, (totalPoints)
         some_points.size_ = totalPoints;
         some_points.sequence_ = new std::array<Object,2>[totalPoints];
 
@@ -205,14 +246,13 @@ class Points2D {
         //for each point takes in the 1st and 2nd number and inserts them into the array.
         for(int i = 0; i < totalPoints;i++)
         {
+            //take in 2 inputs and insert into array
             in >> entry1;
             some_points.sequence_[i][0] = entry1;
             in >> entry2;
             some_points.sequence_[i][1] = entry2;
-
         }
-        return in;
-        // Code missing.
+           return in;
     }
 
   private:
