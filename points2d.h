@@ -97,7 +97,7 @@ class Points2D {
     // Move-constructor.
     Points2D(Points2D &&rhs)
     {
-        //once again allocates memory to array using size_
+        //allocates memory to array using size_
         size_ = rhs.size_;
         sequence_ = new std::array<Object,2>[size_];
 
@@ -112,7 +112,7 @@ class Points2D {
         //then set rhs to "nothing", basically it's not empty.
         rhs.size_ = 0;
         rhs.sequence_ = nullptr;
-        //rhs.sequence_ = [];
+        
     }
 
     // Move-assignment.
