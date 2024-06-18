@@ -1,4 +1,4 @@
-/* Modified privded points2d.h file
+/* Modified provided points2d.h file
 Author: Rachel Briskman
 Course: CSCI-33500
 Instructor: Jaime Canizales
@@ -197,7 +197,6 @@ class Points2D {
                // std::cout << "result is : " << result;
                 for(int i = 0; i < c1.size_; i++)
                 {
-                    
                     result.sequence_[i][0]+= c1.sequence_[i][0];
                     result.sequence_[i][1]+= c1.sequence_[i][1];
                    // std:: cout << "sum is: " << result.sequence_[i][0] << " " << result.sequence_[i][1] << "\n";
